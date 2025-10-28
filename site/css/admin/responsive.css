@@ -1,0 +1,158 @@
+/* ------------------------------------------------------------
+   Admin Responsive Rules
+------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .admin-header-actions {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .admin-header-left,
+  .admin-header-actions {
+    flex: none;
+    width: 100%;
+  }
+
+  .admin-header-left {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 720px) {
+  .admin-header {
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .admin-header-left,
+  .admin-header-actions {
+    flex: none;
+    width: 100%;
+  }
+
+  .admin-header-left {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+
+  .admin-header-left div {
+    text-align: center;
+  }
+
+  .admin-header-actions {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .admin-header-sub {
+    display: none;
+  }
+
+  .admin-link {
+    font-size: 0.85rem;
+  }
+
+  .admin-login-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .admin-section-tools {
+    justify-content: center;
+  }
+
+  .admin-tabs {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .admin-tab {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 900px) {
+  .admin-section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-filters {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .admin-filters input,
+  .admin-filters select,
+  .admin-filters button {
+    width: 100%;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+
+  .admin-table--stacked {
+    display: block;
+  }
+
+  .admin-table--stacked thead,
+  .admin-table--stacked tbody,
+  .admin-table--stacked tr,
+  .admin-table--stacked th,
+  .admin-table--stacked td {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-table--stacked thead {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .admin-table--stacked tbody tr {
+    background: #fff;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    padding: 12px;
+    box-shadow: 0 6px 16px rgba(10, 31, 79, 0.08);
+  }
+
+  .admin-table--stacked td {
+    padding: 8px 0;
+    border: none;
+  }
+
+  .admin-table--stacked td .admin-stacked-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: rgba(10, 31, 79, 0.6);
+    margin-bottom: 4px;
+  }
+
+  .admin-table--stacked td .admin-actions-stack {
+    justify-content: flex-start;
+  }
+}

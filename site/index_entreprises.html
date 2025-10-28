@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accueil Entreprises - Adopteunev</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .company-home { max-width: 1100px; margin: 120px auto 60px; padding: 0 18px; display:flex; flex-direction:column; gap:26px; }
+    .company-home h1 { font-size: 30px; color:#0A1F4F; margin:0; text-align:center; }
+    .applicants-card { background:#fff; border-radius:18px; border:1px solid #e6ecf5; box-shadow:0 12px 30px rgba(15,23,42,0.08); padding:32px; }
+    .applicants-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; }
+    .applicants-header h2 { margin:0; font-size:22px; color:#0A1F4F; }
+    .applicants-header span { font-size:13px; color:#6b7a90; }
+    .applicant-card { border:1px solid #dde4ee; border-radius:12px; padding:16px; margin-top:12px; background:#fff; box-shadow:0 8px 20px rgba(15,23,42,0.05); }
+    .applicant-header { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; }
+    .applicant-header h4 { margin:0; font-size:16px; color:#0A1F4F; }
+    .applicant-meta { font-size:13px; color:#64748b; display:flex; gap:12px; flex-wrap:wrap; margin-top:4px; }
+    .applicant-actions { display:flex; align-items:center; gap:10px; }
+    .btn-heart { display:inline-flex; align-items:center; gap:6px; background:#fff4f4; border:1px solid #fbc6c6; color:#d54848; padding:8px 14px; border-radius:999px; font-weight:600; cursor:pointer; transition:background .15s ease; }
+    .btn-heart:hover { background:#ffe0e0; }
+    .btn-ghost { background:#f2f6ff; border:1px solid #d7e3ff; color:#1f3a93; padding:8px 12px; border-radius:10px; font-weight:600; cursor:pointer; transition:background .15s ease; }
+    .btn-ghost:hover { background:#e6f0ff; }
+    .applicant-details { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-top:12px; }
+    .applicant-details dt { font-size:12px; color:#6b7a90; letter-spacing:.04em; text-transform:uppercase; margin-bottom:2px; }
+    .applicant-details dd { margin:0; font-size:14px; color:#0A1F4F; word-break:break-word; }
+    .applicant-extra { margin-top:14px; padding:14px; border-radius:12px; border:1px solid #e5ecf9; background:#f8fbff; display:none; }
+    .applicant-extra.show { display:block; }
+    .badge { display:inline-flex; align-items:center; padding:4px 8px; border-radius:999px; font-size:12px; }
+    .badge-success { background:#e6fbf1; color:#127c52; }
+    .empty-state { font-size:14px; color:#6b7a90; border:1px dashed #dce5f4; border-radius:12px; padding:18px; text-align:center; }
+    @media (max-width: 768px) {
+      .applicant-header { flex-direction:column; align-items:flex-start; }
+      .applicant-actions { width:100%; justify-content:flex-end; }
+    }
+  </style>
+  <script>window.JB_MODE='company';</script>
+</head>
+<body>
+
+<header>
+  <div class="entete-gauche">
+    <img src="assets/logoh.png" alt="Logo principal" class="logo-principal">
+  </div>
+  <div class="entete-milieu">
+    <img src="assets/logo1.png" alt="Logo 1" class="logo logo-1">
+    <img src="assets/logo2.png" alt="Logo 2" class="logo logo-2">
+    <img src="assets/logo3.png" alt="Logo 3" class="logo logo-3">
+    <img src="assets/logo4.png" id="loginBtn" alt="Logo 4" class="logo logo-4">
+    <img src="assets/logo9.png" alt="Logo 9" class="logo logo-9">
+  </div>
+  <nav class="entete-droite">
+    <a href="about.html">Contact</a>
+    <div class="suivez-nous">
+      <span>Suivez-nous sur :</span>
+      <div class="logos-reseaux">
+        <a href="#"><img src="assets/logo5.png" alt="Logo 5"></a>
+        <a href="#"><img src="assets/logo6.png" alt="Logo 6"></a>
+        <a href="#"><img src="assets/logo7.png" alt="Logo 7"></a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="company-home">
+  <h1>Vos candidatures</h1>
+  <section class="applicants-card">
+    <div class="applicants-header">
+      <h2>Postulants intéressés par vos offres</h2>
+      <span id="companyHomeCount"></span>
+    </div>
+    <p style="margin:0 0 18px;color:#6b7a90;font-size:14px;">Retrouvez ici uniquement les candidats qui ont liké vos annonces. Validez un match pour débloquer leurs coordonnées.</p>
+    <div id="companyHomeApplicants" class="applicants-list">
+      <div class="empty-state">Connectez-vous pour découvrir les candidats qui ont liké vos offres.</div>
+    </div>
+  </section>
+</main>
+
+<!-- à terminer pour des popups propres
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <a href="#" class="close">&times;</a>
+    <img id="ProfilePopupBanner" alt="" style="width:100%;height:220px;object-fit:cover;border-radius:8px;display:none;">
+    <h2 id="ProfilePopupName"></h2>
+    <p id="ProfilePopup"></p>
+  </div>
+</div>
+-->
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <img src="assets/logoh.png" alt="Logo principal" class="logo-principal">
+      <p>Réseaux sociaux :</p>
+      <div class="logos-reseaux">
+        <a href="#"><img src="assets/logo5.png" alt="Logo 5"></a>
+        <a href="#"><img src="assets/logo6.png" alt="Logo 6"></a>
+        <a href="#"><img src="assets/logo7.png" alt="Logo 7"></a>
+      </div>
+    </div>
+    <div class="footer-center">
+      <h3>Copyright</h3>
+      <p class="mentions">
+        <span>Mentions légales</span>
+        <span>CGU</span>
+        <span>Politique de confidentialité</span>
+        <span>Charte Entreprises</span>
+        <span>Politique cookies</span>
+      </p>
+    </div>
+    <div class="footer-right">
+      <h3>À propos</h3>
+      <ul>
+        <li><a href="about.html#concept">Concept</a></li>
+        <li><a href="about.html#entreprises">Entreprises</a></li>
+        <li><a href="about.html#partenaires">Partenaires</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="footer-bottom">&copy; 2025 Adopteunev - Tous droits réservés</p>
+</footer>
+
+<script src="js/login.js"></script>
+<script type="module" src="js/notifications_widget.js?v=6"></script>
+<script type="module">
+  import { registerCompanyApplicationsWidget } from "./js/company_applications_view.js?v=3";
+
+  registerCompanyApplicationsWidget({
+    containerSelector: "#companyHomeApplicants",
+    counterSelector: "#companyHomeCount",
+    emptyMessage: "Aucune candidature reçue pour l’instant.",
+    unauthorizedMessage: "Connectez-vous en tant qu’entreprise pour voir vos candidatures.",
+  });
+</script>
+</body>
+</html>

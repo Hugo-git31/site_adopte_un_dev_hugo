@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Mon Entreprise</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script>window.JB_MODE='company';</script>
+  <style>
+    /* micro-styles locaux pour la page */
+    .wrap { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
+    .page-header {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-bottom:16px;
+    }
+    .page-title { margin:0; font-size:28px; color:#0A1F4F; }
+    .header-actions { display:flex; gap:8px; align-items:center; }
+    .btn { border:none; border-radius:10px; padding:10px 14px; cursor:pointer; }
+    .btn-primary { background:#3DA9FC; color:#fff; }
+    .btn-ghost { background:#f5f7fb; color:#0A1F4F; border:1px solid #e6e9f2; }
+    .grid {
+      display:grid; grid-template-columns: 2fr 1fr; gap:16px;
+    }
+    .card {
+      background:#fff; border:1px solid #e9eef6; border-radius:14px;
+      box-shadow:0 2px 20px rgba(0,0,0,.04);
+    }
+    .card .body { padding:18px 20px; }
+    .stack { display:grid; gap:14px; }
+    .company-card {
+      background:#f9fbff;
+      border:1px solid #e6ecf5;
+      border-radius:18px;
+      box-shadow:0 18px 45px rgba(15,23,42,0.08);
+      overflow:hidden;
+    }
+    .company-card .banner { border-radius:0; height:190px; }
+    .company-card .banner-empty { height:190px; border-radius:0; }
+    .company-form { display:grid; gap:20px; }
+    .company-row {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      column-gap:22px;
+      row-gap:16px;
+    }
+    .company-save { display:flex; justify-content:flex-end; gap:10px; }
+    .label { font-size:13px; color:#274060; margin-bottom:4px; }
+    .input, textarea.input {
+      width:100%; padding:9px 11px; border:1px solid #dde4ee;
+      border-radius:8px; font-size:14px; outline:none;
+    }
+    textarea.input {
+      resize:none;
+      min-height:120px;
+    }
+    .input:focus, textarea.input:focus { border-color:#3DA9FC; box-shadow:0 0 0 3px rgba(61,169,252,.15) }
+    .banner {
+      border-radius:14px 14px 0 0; height:180px; width:100%;
+      object-fit:cover; display:none;
+    }
+    .banner-empty {
+      height:180px; border-radius:14px 14px 0 0; background:linear-gradient(135deg,#f2f7ff,#eef2f8);
+      display:flex; align-items:center; justify-content:center; color:#6b7a90; font-size:14px;
+    }
+    .company-upload {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px 22px;
+      align-items:end;
+    }
+    .upload-box {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .upload-picker {
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 18px;
+      border:1px solid #d6def0;
+      border-radius:8px;
+      background:#f0f4ff;
+      color:#0A1F4F;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+    }
+    .upload-picker input[type="file"] {
+      position:absolute;
+      inset:0;
+      opacity:0;
+      cursor:pointer;
+    }
+    .upload-file-name {
+      font-size:12px;
+      color:#5b6b82;
+      min-width:140px;
+      max-width:240px;
+      flex:1 1 auto;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .banner-row { align-items:flex-end; gap:18px; }
+    .banner-row .upload-column { display:flex; flex-direction:column; gap:8px; }
+    .banner-row .upload-line { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .banner-row .upload-line input[type="file"] { font-size:13px; }
+    .help { font-size:12px; color:#6b7a90; }
+    .divider { border-top:1px solid #eef2f8; margin:12px 0; }
+    .pill { padding:6px 10px; background:#eef6ff; color:#0A1F4F; border-radius:999px; font-size:12px; }
+    .muted-link { color:#0b6bff; text-decoration:underline; font-size:13px; }
+    .jobs-card { margin-top:36px; border:1px solid #e4e9f5; border-radius:18px; box-shadow:0 18px 45px rgba(15,23,42,0.08); }
+    .jobs-header { display:flex; justify-content:space-between; align-items:flex-start; }
+    .jobs-header h2 { margin:0; font-size:22px; color:#0A1F4F; }
+    .jobs-header p { margin:6px 0 0; font-size:13px; color:#6b7a90; max-width:520px; }
+    .jobs-layout { margin-top:16px; display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,0.9fr); gap:22px; padding:4px; }
+    .jobs-form-card {
+      background:#f9fbff;
+      border:1px solid #e6ecf5;
+      border-radius:16px;
+      padding:20px 30px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.08);
+    }
+    .jobs-form-header { display:flex; justify-content:space-between; align-items:center; }
+    .jobs-form-title { margin:0; font-size:16px; color:#0A1F4F; font-weight:600; }
+    .jobs-form { display:grid; gap:16px; }
+    .jobs-form .row-2 {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      column-gap:26px;
+      row-gap:12px;
+    }
+    .jobs-form label { font-size:13px; color:#274060; font-weight:500; display:block; margin-bottom:4px; }
+    .jobs-form input, .jobs-form textarea { width:100%; padding:9px 11px; border:1px solid #d8e0ee; border-radius:10px; font-size:14px; outline:none; background:#fff; resize:none; }
+    .jobs-form textarea { min-height:110px; }
+    .form-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:8px; }
+    .btn-secondary { background:#eef2f9; color:#274060; border:1px solid #d6def0; }
+    .jobs-aside { background:#fff; border:1px solid #e6ecf5; border-radius:16px; padding:18px 16px; display:flex; flex-direction:column; gap:16px; max-height:600px; overflow-y:auto; box-shadow:0 6px 20px rgba(15,23,42,0.06); }
+    .jobs-list { display:flex; flex-direction:column; gap:14px; }
+    .jobs-aside h3 { margin:0; font-size:16px; color:#0A1F4F; display:flex; justify-content:space-between; align-items:center; }
+    .jobs-aside small { font-size:12px; color:#6b7a90; }
+    .job-row { border:1px solid #dde4ee; border-radius:12px; padding:12px; margin-bottom:10px; background:#fff; display:flex; flex-direction:column; gap:10px; box-shadow:0 2px 6px rgba(15,23,42,0.04); }
+    .job-title { font-weight:600; color:#0A1F4F; font-size:15px; display:flex; justify-content:space-between; gap:10px; align-items:center; min-width:0; }
+    .job-title-text { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .job-short { margin:0; font-size:13px; color:#475569; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; text-overflow:ellipsis; word-break:break-word; }
+    .job-meta { font-size:13px; color:#5b6b82; display:flex; gap:10px; flex-wrap:wrap; }
+    .job-actions { display:flex; gap:8px; }
+    .empty-state { font-size:13px; color:#6b7a90; padding:16px; border:1px dashed #d8e0ee; border-radius:12px; background:#f9fbff; text-align:center; }
+    .meta-card { background:#fff; border:1px solid #e6ecf5; border-radius:16px; padding:20px 18px; box-shadow:0 12px 30px rgba(15,23,42,0.06); display:flex; flex-direction:column; gap:18px; }
+    .meta-status { display:flex; justify-content:space-between; align-items:center; }
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:14px 18px; }
+    .meta-item { display:flex; flex-direction:column; gap:4px; }
+    .meta-label { font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:#7b879b; }
+    .meta-value { font-size:18px; font-weight:600; color:#0A1F4F; }
+    .quick-actions { display:flex; flex-direction:column; gap:10px; }
+    .quick-link { display:inline-flex; justify-content:center; align-items:center; padding:10px 14px; border-radius:10px; border:1px solid #d6def0; background:#f4f7ff; color:#0A1F4F; text-decoration:none; font-weight:600; transition:background .15s ease, border .15s ease; cursor:pointer; font-family:inherit; }
+    .quick-link:hover { background:#e5eeff; border-color:#bfd2ff; }
+    .applicants-card { margin-top:32px; }
+    .applicants-header { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .applicants-header h2 { margin:0; font-size:20px; color:#0A1F4F; }
+    .applicants-header span { font-size:13px; color:#6b7a90; }
+    .applicant-card { border:1px solid #dde4ee; border-radius:12px; padding:14px 16px; margin-top:12px; background:#fff; box-shadow:0 6px 20px rgba(15,23,42,0.05); }
+    .applicant-header { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+    .applicant-header h4 { margin:0; font-size:16px; color:#0A1F4F; }
+    .applicant-meta { font-size:13px; color:#64748b; display:flex; gap:12px; flex-wrap:wrap; margin-top:4px; }
+    .applicant-actions { display:flex; align-items:center; gap:10px; }
+    .badge { display:inline-flex; align-items:center; padding:4px 8px; border-radius:999px; font-size:12px; }
+    .badge-success { background:#e6fbf1; color:#127c52; }
+    main {
+      margin: 110px 0 0;
+      min-height: auto;
+      display: block;
+      background: var(--color-hero-bg);
+      padding: 0 0 40px;
+    }
+    @media (max-width: 768px) {
+      .applicant-header { flex-direction:column; align-items:flex-start; gap:6px; }
+      .applicant-actions { width:100%; justify-content:flex-end; }
+    }
+    .danger {
+      background:#b00020;
+      color:#fff;
+      border-radius: 10px;
+      border:none;
+      cursor: pointer
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .jobs-layout { grid-template-columns:1fr; }
+      .jobs-aside { max-height:none; order:-1; }
+      .page-header { flex-direction:column; align-items:flex-start; gap:10px; }
+      .header-actions { width:100%; justify-content:flex-start; }
+      .company-row, .company-upload { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="entete-gauche">
+    <img src="assets/logoh.png" alt="Logo principal" class="logo-principal">
+  </div>
+  <div class="entete-milieu">
+    <img src="assets/logo1.png" alt="Logo 1" class="logo logo-1">
+    <img src="assets/logo2.png" alt="Logo 2" class="logo logo-2">
+    <img src="assets/logo3.png" alt="Logo 3" class="logo logo-3">
+    <img src="assets/logo4.png" alt="Logo 4" id="loginBtn" class="logo logo-4">
+    <img src="assets/logo9.png" alt="Logo 9" class="logo logo-9">
+  </div>
+  <nav class="entete-droite">
+    <a href="about.html">Contact</a>
+    <div class="suivez-nous">
+      <span>Suivez-nous sur :</span>
+      <div class="logos-reseaux">
+        <a href="#"><img src="assets/logo5.png" alt="Logo 5"></a>
+        <a href="#"><img src="assets/logo6.png" alt="Logo 6"></a>
+        <a href="#"><img src="assets/logo7.png" alt="Logo 7"></a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-header">
+      <h1 class="page-title">Mon Entreprise</h1>
+      <div class="header-actions">
+        <button id="btnSaveTop" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </div>
+
+    <div id="guard" class="help" style="margin:6px 0 14px;"></div>
+
+    <div class="grid">
+      <!-- Colonne gauche : carte entreprise -->
+      <section class="card company-card" id="companyCard">
+        <img id="bannerPreview" class="banner" alt="Bannière entreprise" />
+        <div id="bannerEmpty" class="banner-empty">Aucune bannière pour l’instant</div>
+
+        <div class="body company-form">
+          <div class="company-row">
+            <div>
+              <div class="label">Nom *</div>
+              <input id="co_name" class="input" placeholder="Ma Société" />
+            </div>
+            <div>
+              <div class="label">Ville (siège)</div>
+              <input id="co_city" class="input" placeholder="Toulouse" />
+            </div>
+          </div>
+
+          <div class="company-row">
+            <div>
+              <div class="label">Secteur</div>
+              <input id="co_sector" class="input" placeholder="Logiciels, Conseil…" />
+            </div>
+            <div>
+              <div class="label">Effectif</div>
+              <input id="co_headcount" class="input" type="number" min="1" placeholder="ex : 42" />
+            </div>
+          </div>
+
+          <div>
+            <div class="label">Description</div>
+            <textarea id="co_desc" class="input" rows="4" placeholder="Ce que fait l’entreprise"></textarea>
+          </div>
+
+          <div>
+            <div class="label">Site web</div>
+            <input id="co_web" class="input" placeholder="https://..." />
+            <div class="help">Ajoute l’URL publique de ta société.</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="company-upload">
+            <div>
+              <div class="label">Bannière (URL)</div>
+              <input id="co_banner" class="input" placeholder="/uploads/xxx.webp" />
+              <div class="help">L’URL s’auto-remplit après upload.</div>
+            </div>
+            <div>
+              <div class="label">Uploader une image</div>
+              <div class="upload-box">
+                <label class="upload-picker">
+                  <input type="file" id="file" accept="image/*" />
+                  <span>Choisir un fichier</span>
+                </label>
+                <span class="upload-file-name" id="uploadFileName">Aucun fichier choisi</span>
+                <button id="btnUpload" class="btn btn-ghost" type="button">Uploader</button>
+              </div>
+              <div class="help">Formats recommandés : PNG, JPG, WebP. Taille max 5 Mo.</div>
+            </div>
+          </div>
+
+          <div class="company-save">
+            <button id="btnSave" class="btn btn-primary">Enregistrer</button>
+            <button id="btnDelete" class="danger" type="button">Supprimer mon entreprise</button>
+          </div>
+
+          <div id="msg" class="help"></div>
+        </div>
+      </section>
+
+      <!-- Colonne droite : méta & raccourcis -->
+      <aside class="meta-card">
+        <div class="meta-status">
+          <div class="label" style="margin:0;">Statut</div>
+          <span id="statusPill" class="pill">Non connecté</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div>
+          <div class="label" style="margin-bottom:8px;">Résumé</div>
+          <div class="meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">Offres publiées</span>
+              <span class="meta-value" id="metaOffers">0</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Site web</span>
+              <span class="meta-value" id="metaWebsite">—</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Bannière</span>
+              <span class="meta-value" id="metaBanner">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div>
+          <div class="label" style="margin-bottom:8px;">Actions rapides</div>
+          <div class="quick-actions">
+            <a id="goJobs" class="quick-link" href="#jobsFormBlock">Publier une offre</a>
+            <a id="goList" class="quick-link" href="#jobsListBlock">Voir mes offres</a>
+            <button id="btnDeleteAccount" class="danger" type="button">Supprimer mon compte</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="help">
+          Astuce : complète d’abord <b>Nom</b> puis clique <b>Enregistrer</b> pour créer
+          l’entreprise ; tu pourras ensuite revenir compléter le reste.
+        </div>
+      </aside>
+    </div>
+
+    <section class="card jobs-card">
+      <div class="body">
+        <div class="jobs-header">
+          <div>
+            <h2>Gestion des offres</h2>
+            <p>Centralise toutes tes annonces ici : crée de nouvelles offres, mets-les à jour ou supprime celles qui ne sont plus d’actualité.</p>
+          </div>
+        </div>
+        <div class="jobs-layout">
+          <div class="jobs-form-card" id="jobsFormBlock">
+            <div class="jobs-form-header">
+              <h3 class="jobs-form-title" id="jobFormTitle">Nouvelle offre</h3>
+              <button id="btnNewJob" class="btn btn-primary">Nouvelle offre</button>
+            </div>
+            <form class="jobs-form" id="jobForm">
+              <input type="hidden" id="jobId" />
+              <div>
+                <label for="jobTitle">Titre *</label>
+                <input id="jobTitle" placeholder="Ex : Développeur Fullstack" required />
+              </div>
+              <div>
+                <label for="jobShort">Résumé *</label>
+                <textarea id="jobShort" placeholder="Pitch court de l’offre" required></textarea>
+              </div>
+              <div>
+                <label for="jobFull">Description détaillée</label>
+                <textarea id="jobFull" placeholder="Missions, environnement, stack…"></textarea>
+              </div>
+              <div class="row-2">
+                <div>
+                  <label for="jobLocation">Localisation</label>
+                  <input id="jobLocation" placeholder="Toulouse / Remote…" />
+                </div>
+                <div>
+                  <label for="jobContract">Contrat</label>
+                  <input id="jobContract" placeholder="CDI, Stage…" />
+                </div>
+              </div>
+              <div class="row-2">
+                <div>
+                  <label for="jobWorkMode">Mode de travail</label>
+                  <input id="jobWorkMode" placeholder="Remote, Hybride…" />
+                </div>
+                <div>
+                  <label for="jobTags">Tags (séparés par des virgules)</label>
+                  <input id="jobTags" placeholder="React, DevOps…" />
+                </div>
+              </div>
+              <div class="row-2">
+                <div>
+                  <label for="jobSalaryMin">Salaire min.</label>
+                  <input id="jobSalaryMin" type="number" min="0" placeholder="ex : 35000" />
+                </div>
+                <div>
+                  <label for="jobSalaryMax">Salaire max.</label>
+                  <input id="jobSalaryMax" type="number" min="0" placeholder="ex : 42000" />
+                </div>
+              </div>
+              <div class="row-2">
+                <div>
+                  <label for="jobCurrency">Devise</label>
+                  <input id="jobCurrency" placeholder="EUR, USD…" />
+                </div>
+                <div>
+                  <label for="jobProfile">Profil recherché</label>
+                  <input id="jobProfile" placeholder="Compétences clé, XP…" />
+                </div>
+              </div>
+              <div id="jobMsg" class="help"></div>
+              <div class="form-actions">
+                <button type="button" id="btnResetJob" class="btn btn-secondary">Annuler</button>
+                <button type="submit" id="btnSaveJob" class="btn btn-primary">Enregistrer</button>
+              </div>
+            </form>
+          </div>
+        <aside class="jobs-aside" id="jobsListBlock">
+            <h3>Mes offres <small id="jobCount"></small></h3>
+            <div class="jobs-list" id="jobsList">
+              <div class="empty-state">Aucune offre pour l’instant. Crée ta première annonce via le formulaire.</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="js/login.js"></script>
+<script type="module" src="js/notifications_widget.js?v=6"></script>
+<script src="js/jobs_service.js"></script>
+<script type="module" src="js/company_profile.js"></script>
+</body>
+</html>

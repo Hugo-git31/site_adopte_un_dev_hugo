@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administration - Jobboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+  <div class="admin-logout-float">
+    <img src="assets/logo4.png" alt="Compte" id="loginBtn" class="admin-login-btn">
+  </div>
+
+  <header class="admin-header">
+    <div class="admin-header-left">
+      <div class="admin-logo-link" aria-hidden="true">
+        <img src="assets/logoh.png" alt="Panel admin" class="logo-principal">
+      </div>
+      <div>
+        <h1>Panel administrateur</h1>
+        <p class="admin-header-sub">Superviser les utilisateurs, entreprises et offres.</p>
+      </div>
+    </div>
+    <div class="admin-header-actions"></div>
+  </header>
+
+  <nav class="admin-tabs">
+    <button class="admin-tab is-active" data-view="dashboard">Tableau de bord</button>
+    <button class="admin-tab" data-view="users">Utilisateurs</button>
+    <button class="admin-tab" data-view="companies">Entreprises</button>
+    <button class="admin-tab" data-view="jobs">Offres</button>
+    <button class="admin-tab" data-view="applications">Candidatures</button>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-view is-active" data-view="dashboard">
+      <section class="admin-section">
+        <h2>Statistiques</h2>
+        <div id="adminStats" class="admin-stats-grid"></div>
+      </section>
+
+      <section class="admin-section">
+        <h2>Dernières activités</h2>
+        <div class="admin-recent-grid">
+          <div class="admin-card">
+            <h3>Utilisateurs</h3>
+            <ul id="recentUsers" class="admin-list"></ul>
+          </div>
+          <div class="admin-card">
+            <h3>Entreprises</h3>
+            <ul id="recentCompanies" class="admin-list"></ul>
+          </div>
+          <div class="admin-card">
+            <h3>Offres</h3>
+            <ul id="recentJobs" class="admin-list"></ul>
+          </div>
+          <div class="admin-card">
+            <h3>Candidatures</h3>
+            <ul id="recentApplications" class="admin-list"></ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="admin-view" data-view="users">
+      <section class="admin-section">
+        <div class="admin-section-head">
+          <div>
+            <h2>Gestion des utilisateurs</h2>
+            <p class="admin-section-sub">Créer, éditer ou supprimer les comptes utilisateurs.</p>
+          </div>
+          <div class="admin-section-tools">
+            <form id="adminUserFilters" class="admin-filters">
+              <input type="search" id="adminSearch" placeholder="Rechercher par nom ou ville">
+              <button type="submit">Filtrer</button>
+            </form>
+            <button type="button" id="adminUserCreateBtn" class="admin-primary-btn">Nouvel utilisateur</button>
+          </div>
+        </div>
+
+        <div class="admin-table-wrapper">
+		<table class="admin-table admin-table--stacked">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Ville</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminUsersBody"></tbody>
+          </table>
+          <div id="adminUsersEmpty" class="admin-empty-state">Aucun profil trouvé.</div>
+        </div>
+        <div id="adminUsersPagination" class="admin-pagination"></div>
+      </section>
+    </div>
+
+    <div class="admin-view" data-view="companies">
+      <section class="admin-section">
+        <div class="admin-section-head">
+          <div>
+            <h2>Gestion des entreprises</h2>
+            <p class="admin-section-sub">Créer, éditer ou supprimer les entreprises partenaires.</p>
+          </div>
+          <div class="admin-section-tools">
+            <form id="adminCompanyFilters" class="admin-filters">
+              <input type="search" id="adminCompanySearch" placeholder="Rechercher par nom ou ville">
+              <button type="submit">Filtrer</button>
+            </form>
+            <button type="button" id="adminCompanyCreateBtn" class="admin-primary-btn">Nouvelle entreprise</button>
+          </div>
+        </div>
+        <div class="admin-table-wrapper">
+          <table class="admin-table admin-table--stacked">
+            <thead>
+              <tr>
+                <th>Entreprise</th>
+                <th>Ville</th>
+                <th>Site web</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminCompaniesBody"></tbody>
+          </table>
+          <div id="adminCompaniesEmpty" class="admin-empty-state">Aucune entreprise trouvée.</div>
+        </div>
+        <div id="adminCompaniesPagination" class="admin-pagination"></div>
+      </section>
+    </div>
+
+    <div class="admin-view" data-view="jobs">
+      <section class="admin-section">
+        <div class="admin-section-head">
+          <div>
+            <h2>Gestion des offres</h2>
+            <p class="admin-section-sub">Publier, éditer ou retirer les annonces d'emploi.</p>
+          </div>
+          <div class="admin-section-tools">
+            <form id="adminJobFilters" class="admin-filters">
+              <input type="search" id="adminJobSearch" placeholder="Rechercher un poste ou une entreprise">
+              <button type="submit">Filtrer</button>
+            </form>
+            <button type="button" id="adminJobCreateBtn" class="admin-primary-btn">Nouvelle offre</button>
+          </div>
+        </div>
+        <div class="admin-table-wrapper">
+          <table class="admin-table admin-table--stacked">
+            <thead>
+              <tr>
+                <th>Poste</th>
+                <th>Entreprise</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminJobsBody"></tbody>
+          </table>
+          <div id="adminJobsEmpty" class="admin-empty-state">Aucune offre trouvée.</div>
+        </div>
+        <div id="adminJobsPagination" class="admin-pagination"></div>
+      </section>
+    </div>
+
+    <div class="admin-view" data-view="applications">
+      <section class="admin-section">
+        <div class="admin-section-head">
+          <div>
+            <h2>Gestion des candidatures</h2>
+            <p class="admin-section-sub">Consulter, qualifier ou supprimer les candidatures reçues.</p>
+          </div>
+          <div class="admin-section-tools">
+            <form id="adminApplicationFilters" class="admin-filters">
+              <input type="search" id="adminApplicationSearch" placeholder="Rechercher un candidat ou une offre">
+              <button type="submit">Filtrer</button>
+            </form>
+          </div>
+        </div>
+        <div class="admin-table-wrapper">
+		<table class="admin-table admin-table--stacked">
+            <thead>
+              <tr>
+                <th>Candidat</th>
+                <th>Contact</th>
+                <th>Offre</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminApplicationsBody"></tbody>
+          </table>
+          <div id="adminApplicationsEmpty" class="admin-empty-state">Aucune candidature trouvée.</div>
+        </div>
+        <div id="adminApplicationsPagination" class="admin-pagination"></div>
+      </section>
+    </div>
+  </main>
+
+  <template id="adminStatTpl">
+    <div class="admin-stat-card">
+      <p class="admin-stat-label"></p>
+      <p class="admin-stat-value"></p>
+    </div>
+  </template>
+
+  <div id="adminModal" class="admin-modal hidden">
+    <div class="admin-modal__dialog">
+      <div class="admin-modal__header">
+        <h3 id="adminModalTitle"></h3>
+        <button type="button" id="adminModalClose" aria-label="Fermer" class="admin-modal__close">×</button>
+      </div>
+      <form id="adminModalForm" class="admin-modal__form">
+        <div id="adminModalBody" class="admin-modal__body"></div>
+        <div class="admin-modal__footer">
+          <button type="button" id="adminModalCancel" class="admin-secondary-btn">Annuler</button>
+          <button type="submit" id="adminModalSubmit" class="admin-primary-btn">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+  <script src="js/admin/dashboard.js" type="module"></script>
+</body>
+</html>

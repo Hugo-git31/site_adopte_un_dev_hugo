@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accueil - Hugo Lesage</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="./js/nolog_jobs_display.js"></script>
+  <script type="module" src="./js/nolog_companies_display.js"></script>
+  <script type="module" src="./js/filter.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="entete-gauche">
+    <img src="assets/logoh.png" alt="Logo principal" class="logo-principal">
+  </div>
+<div class="entete-milieu">
+  <img src="assets/logo1.png" alt="Logo 1" class="logo logo-1">
+  <img src="assets/logo2.png" alt="Logo 2" class="logo logo-2">
+  <img src="assets/logo3.png" alt="Logo 3" class="logo logo-3">
+  <img src="assets/logo4.png" alt="Logo 4" id="loginBtn" class="logo logo-4">
+  <img src="assets/logo9.png" alt="Logo 9" class="logo logo-9">
+</div>
+  <nav class="entete-droite">
+    <a href="about.html">Contact</a>
+    <div class="suivez-nous">
+      <span>Suivez-nous sur :</span>
+      <div class="logos-reseaux">
+        <a href="#"><img src="assets/logo5.png" alt="Logo 5"></a>
+        <a href="#"><img src="assets/logo6.png" alt="Logo 6"></a>
+        <a href="#"><img src="assets/logo7.png" alt="Logo 7"></a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="search-bar-container">
+    <input type="text" placeholder="Rechercher..." class="search-bar">
+    <input type="text" placeholder="Localisation" class="location-bar">
+    <button class="filter-button">Filtrer</button>
+  </div>
+<div class="filter-block">
+  <h3>Filtres supplémentaires</h3>
+  <label><input type="checkbox"> Option 1</label><br>
+  <label><input type="checkbox"> Option 2</label><br>
+  <label><input type="checkbox"> Option 3</label>
+</div>
+
+  <h2>Offres :</h2>
+<section class="offres">
+  <!-- Cartes offres -->
+</section>
+<div class="jobs-pagination" style="display:none; gap:12px; align-items:center; justify-content:center; margin:20px 0;"></div>
+<h2>Entreprises :</h2>
+<section class="entreprises">
+  <!-- Cartes entreprises-->
+</section>
+</main>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <a href="#" class="close">&times;</a>
+    <img id="popupBanner" alt="" style="width:100%;height:220px;object-fit:cover;border-radius:8px;display:none;">
+    <h2 id="popupTitle"></h2>
+    <p id="popupCompany" class="entreprise"></p>
+    <div id="popupTags" class="tags"></div>
+    <div class="popup-description">
+      <p id="popupShort"></p>
+      <div id="popupFull"></div>
+    </div>
+    <a id="popupApply" href="postuler.html" class="popup-apply">Postuler</a>
+  </div>
+</div>
+
+<div id="companyPopup" class="popup">
+  <div class="popup-content">
+    <a href="#" class="close" data-close-company>&times;</a>
+    <img id="companyPopupBanner" alt="" style="width:100%;height:220px;object-fit:cover;border-radius:8px;display:none;">
+    <h2 id="companyPopupName"></h2>
+    <p id="companyPopupCity" class="entreprise"></p>
+    <div id="companyPopupDescription"></div>
+    <a id="companyPopupSite" class="popup-apply" target="_blank" rel="noopener">Visiter le site</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <img src="assets/logoh.png" alt="Logo principal" class="logo-principal">
+      <p>Réseaux sociaux :</p>
+      <div class="logos-reseaux">
+        <a href="#"><img src="assets/logo5.png" alt="Logo 5"></a>
+        <a href="#"><img src="assets/logo6.png" alt="Logo 6"></a>
+        <a href="#"><img src="assets/logo7.png" alt="Logo 7"></a>
+      </div>
+    </div>
+    <div class="footer-center">
+      <h3>Copyright</h3>
+      <p class="mentions">
+        <span>Mentions légales</span>
+        <span>CGU</span>
+        <span>Politique de confidentialité</span>
+        <span>Charte Welcome to the Jungle</span>
+        <span>Politique cookies</span>
+      </p>
+    </div>
+    <div class="footer-right">
+      <h3>À propos</h3>
+      <ul>
+        <li><a href="about.html#experiences">Concept</a></li>
+        <li><a href="about.html#a-propos">Offres d'emploi</a></li>
+        <li><a href="about.html#partenaire">Partenaires</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="footer-bottom">&copy; 2025 Adopteunev - Tous droits réservés</p>
+</footer>
+
+<script src="js/login.js"></script>
+<script type="module" src="js/notifications_widget.js?v=6"></script>
+<script src="js/accueil.js"></script>
+</body>
+</html>
